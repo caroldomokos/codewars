@@ -1,0 +1,3 @@
+(defn SeriesSum
+[number]
+(reduce #(
