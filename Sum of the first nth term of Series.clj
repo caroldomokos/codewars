@@ -46,3 +46,12 @@
   (format "%.2f" (float (reduce + (for [x (range 1 (* 3 n) 3) :let [y (/ 1 x)]]  y)))))
 ;;; same result. For large number it takes a lot of time to calculate...so based on this approximation that was good
 ;;for Euler I will try some code https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant
+(defn series-sum-approx
+  [n]
+  (format "%.2f" ( - (+ (#(Math/log %) n) 0.5772156649 (/ 1 (* 2 n))) (/ 1 (* 12 (* n n))))))
+;;; this did not work
+;;;so I looked at what the others did. The solutions were very close. The difference is that they did not use float.
+;;;;That seems to take too long. Instead use reduce with 0.0 as first value! so this worked
+(ns nthseries.core)
+(defn series-sum [n]
+(format "%.2f" (reduce + 0.0 (map #(/ 1 %) (range 1 (* 3 n) 3)))))
