@@ -55,3 +55,11 @@
 (ns nthseries.core)
 (defn series-sum [n]
 (format "%.2f" (reduce + 0.0 (map #(/ 1 %) (range 1 (* 3 n) 3)))))
+;;; the recursive solution also works if removing float
+(ns nthseries.core)
+(defn series-sum
+  ([n] (series-sum n 0.0))
+  ([n acc] 
+    (if (= n 0)
+      (format "%.2f"  acc)
+(recur (- n 1) (+ acc (/ 1 (+ 1 (* 3 (- n 1)))))))))
